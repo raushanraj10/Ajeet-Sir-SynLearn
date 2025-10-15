@@ -4,6 +4,7 @@ import AppStore from "./Components/Utils/Appstore";
 import Body from "./Body";
 import UploadDocumentPage from "./Components/UploadDocumentPage";
 import FacultyHome from "./Components/FacultyHome";
+import LoginPage from "./Components/LoginPage";
 
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
       <BrowserRouter basename="/">
       <Routes>
         <Route path="/" element={<Body/>}>
+        <Route path="/" element={<LoginPage/>}></Route>
         <Route path="/uploaddoc/:semester/:branch" element={<UploadDocumentPage/>}/>
          <Route path="/facultyhome" element={<FacultyHome/>}/>
         </Route>

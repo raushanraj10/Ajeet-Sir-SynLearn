@@ -34,7 +34,7 @@ export default function LoginPage() {
   }
 
   return (
-    <FacultySidebar>
+ 
     <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
       <form
         onSubmit={handleSubmit}
@@ -92,6 +92,6 @@ export default function LoginPage() {
         </button>
       </form>
     </div>
-    </FacultySidebar>
+  
   );
 }
