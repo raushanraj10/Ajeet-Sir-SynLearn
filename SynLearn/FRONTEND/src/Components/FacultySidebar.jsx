@@ -15,6 +15,7 @@ import BASE_URL from "./constants/BASE_URL";
 
 import { useDispatch } from "react-redux";
 import axios from "axios";
+import { removeadmin } from "./Utils/AdminSlice";
 
 export default function FacultySidebar({ children }) {
   const [fullscreen, setFullscreen] = useState(false);
@@ -117,7 +118,8 @@ export default function FacultySidebar({ children }) {
   const handleLogout = async () => {
     try {
       await axios.get(`${BASE_URL}/logout`, { withCredentials: true });
-      navigate("/");
+       dispatch(removeadmin())
+      return navigate("/");
     } catch (err) {
       console.error("Logout failed:", err);
     }

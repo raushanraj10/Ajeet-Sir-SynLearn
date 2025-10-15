@@ -241,20 +241,14 @@ const handleLogout = async () => {
     dispatch(removeuser());
     dispatch(removeadmin());
 
-    // Clear local storage/session as you do
-    localStorage.clear();
-
     // Navigate based on who was logged in
     if (admin && admin.fullName) {
-      navigate("/login-by-admin"); // or any admin login landing page
-    } else if (user && user.fullName) {
-      navigate("/"); // or student login landing page
+      return navigate("/login-by-admin"); // or any admin login landing page
+     // or student login landing page
     } else {
-      navigate("/"); // default landing page
+      return navigate("/"); // default landing page
     }
-
-    // Optionally refresh page
-    window.location.reload();
+   
   } catch (e) {
     console.error("Logout failed:", e);
   }
