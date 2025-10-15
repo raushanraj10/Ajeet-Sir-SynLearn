@@ -1,7 +1,56 @@
 const express =require("express");
 const ModelStudent = require("../Models/ModelStudent");
 const ModelTeacherFile = require("../Models/ModelTeacherFile");
+const ModelAdmin = require("../Models/ModelAdmin");
+const UserAuth = require("../middlewares/UserAuth");
 const ProfileRouter=express.Router();
+
+
+ProfileRouter.get("/getadminprofile", UserAuth, async (req, res) => {
+  try {
+    const decoded = req.decode; // From JWT
+    if (!decoded || decoded.role !== "admin") {
+      return res.status(403).json({ success: false, message: "Access denied" });
+    }
+
+    // Fetch full admin details from DB
+    const adminData = await ModelAdmin.findOne({ userId: decoded.userId }).select("userId fullName _id");
+
+    if (!adminData) {
+      return res.status(404).json({ success: false, message: "Admin not found" });
+    }
+
+    res.json(adminData);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+});
+
+
+// Get single student profile by registration
+ProfileRouter.get("/getstudentprofile", UserAuth, async (req, res) => {
+  try {
+   const decoded = req.decode; // From JWT
+    if (!decoded || decoded.role !== "student") {
+      return res.status(403).json({ success: false, message: "Access denied" });
+    }
+    // console.log(decoded)
+    const data = await ModelStudent.findOne({ registration:decoded.registration });
+    if (!data) {
+      return res.status(404).json({ success: false, message: "Student not found" });
+    }
+    return res.json({
+      success: true,
+      message: "Welcome Back!",
+      user: data,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+});
+
 
 ProfileRouter.get("/admin/students", async (req, res) => {
   try {

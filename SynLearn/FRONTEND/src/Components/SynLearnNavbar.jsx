@@ -199,6 +199,10 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { removeuser } from "./Utils/UserSlice";
+import { removeadmin } from "./Utils/AdminSlice";
+import axios from "axios";
+import BASE_URL from "./constants/BASE_URL";
 // import { removeuser } from "./path/to/UserSlice";
 // import { removeadmin } from "./path/to/AdminSlice";
 
@@ -207,16 +211,17 @@ export default function SynLearnNavbar() {
   const navigate = useNavigate();
 
   // Detect user and admin in redux (adjust slice names as needed)
-  const user = useSelector((state) => state.userdata);
-  const admin = useSelector((state) => state.admindata);
-
+  const user = useSelector((state) => state?.userdata);
+  const admin = useSelector((state) => state?.admindata);
+console.log(admin)
   // Display name and user type logic
   let currentUser = null;
   let currentType = null;
-  if (admin && admin.fullname) {
-    currentUser = admin.fullname;
-    currentType = "admin";
-  } else if (user && user.fullName) {
+  if (admin && admin.fullName) {
+  currentUser = admin.fullName;
+  currentType = "admin";
+}
+ else if (user && user.fullName) {
     currentUser = user.fullName;
     currentType = "student";
   }
@@ -228,13 +233,33 @@ export default function SynLearnNavbar() {
   };
 
   // Logout logic (attach redux clear if desired)
-  const handleLogout = () => {
-    // dispatch(removeuser());
-    // dispatch(removeadmin());
+const handleLogout = async () => {
+  try {
+    await axios.get(`${BASE_URL}/logout`, { withCredentials: true });
+
+    // Clear redux
+    dispatch(removeuser());
+    dispatch(removeadmin());
+
+    // Clear local storage/session as you do
     localStorage.clear();
-    navigate("/");
+
+    // Navigate based on who was logged in
+    if (admin && admin.fullName) {
+      navigate("/login-by-admin"); // or any admin login landing page
+    } else if (user && user.fullName) {
+      navigate("/"); // or student login landing page
+    } else {
+      navigate("/"); // default landing page
+    }
+
+    // Optionally refresh page
     window.location.reload();
-  };
+  } catch (e) {
+    console.error("Logout failed:", e);
+  }
+};
+
 
   const handleSignIn = () => {
     navigate("/register");

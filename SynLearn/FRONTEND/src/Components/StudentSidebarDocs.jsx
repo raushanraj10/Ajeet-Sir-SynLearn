@@ -44,11 +44,7 @@ export default function StudentSidebarDocs() {
   // Responsive sidebar
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  useEffect(() => {
-    if (!user) {
-      navigate("/");
-    }
-  }, [user, navigate]);
+ 
 
   const [activeDocType, setActiveDocType] = useState(docTypes[0]);
   const [documents, setDocuments] = useState([]);

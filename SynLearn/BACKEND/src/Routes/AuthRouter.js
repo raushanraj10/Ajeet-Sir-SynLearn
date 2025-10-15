@@ -45,6 +45,7 @@ AuthRouter.post("/register-student", async (req, res) => {
     });
 
     await newStudent.save();
+    
 
     res.status(201).json({ message: "Student registered successfully." });
   } catch (error) {
@@ -94,7 +95,15 @@ AuthRouter.post("/login-student", async (req, res) => {
     if (!student.permission) {
       return res.status(403).json({ message: "Your account is not approved by admin yet." });
     }
-
+      const token = await jwt.sign(
+  { registration:userId, role: "student" },
+  process.env.Jwt_secret
+);
+   res.cookie("token", token, {
+    secure:true,
+    sameSite:"none",
+       maxAge: 2 * 24 * 60 * 60 * 1000
+});
     // Authentication success - send student data
     res.json({ student });
   } catch (error) {
@@ -132,7 +141,7 @@ if(password!==check.password) {
     sameSite:"none",
        maxAge: 2 * 24 * 60 * 60 * 1000
 });
-const final =await ModelAdmin.find({userId}).select("userId _id fullName")
+const final =await ModelAdmin.findOne({userId}).select("userId _id fullName")
   return res.json({
       success: true,
       message: "Welcome Back!",

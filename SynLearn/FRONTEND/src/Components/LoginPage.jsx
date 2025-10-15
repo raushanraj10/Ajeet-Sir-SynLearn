@@ -26,7 +26,7 @@ export default function LoginPage() {
     }
     try {
      const response = await axios.post(`${BASE_URL}/login-admin`, { userId, password }, { withCredentials: true });
-       dispatch(addadmin(response.data))
+       dispatch(addadmin(response.data.user))
       setMessage("Login Succesfully")
       Navigate("/facultyhome")
      
