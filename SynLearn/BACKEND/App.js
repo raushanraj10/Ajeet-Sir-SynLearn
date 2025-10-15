@@ -31,12 +31,14 @@ app.use(express.json())
 
 const AuthRouter =require("./src/Routes/AuthRouter");
 const UploadRouter = require("./src/Routes/UploadRouter");
+const ProfileRouter = require("./src/Routes/ProfileRouter");
 
 
 
 
 app.use("/",AuthRouter)
 app.use("/",UploadRouter)
+app.use("/",ProfileRouter)
 app.use("/",(req,res)=>{res.send("done")})
 
 

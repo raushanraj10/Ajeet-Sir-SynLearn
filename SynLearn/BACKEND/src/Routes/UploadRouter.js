@@ -78,7 +78,7 @@ UploadRouter.post("/uploads", upload.array("files", 5), async (req, res) => {
 UploadRouter.get("/documents/:semester/:branch", async (req, res) => {
   try {
     const { semester, branch } = req.params; // ✅ Correct
-    console.log("Received:", semester, branch);
+    // console.log("Received:", semester, branch);
 
     const data = await ModelTeacherFile.find({ semester, branch });
     res.send(data);
@@ -88,6 +88,28 @@ UploadRouter.get("/documents/:semester/:branch", async (req, res) => {
   }
 });
 
+
+UploadRouter.delete("/documents/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Find document in database
+    const document = await ModelTeacherFile.findById(id);
+    if (!document) {
+      return res.status(404).json({ message: "Document not found" });
+    }
+
+    // Optional: Delete file from cloud storage here if needed
+    
+    // Delete document record
+    await ModelTeacherFile.findByIdAndDelete(id);
+
+    res.json({ message: "Document deleted successfully" });
+  } catch (error) {
+    console.error("Delete error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 
 module.exports = UploadRouter; 

@@ -4,6 +4,8 @@ import axios from "axios"
 import FacultySidebar from "./FacultySidebar";
 import BASE_URL from "./constants/BASE_URL";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addadmin } from "./Utils/AdminSlice";
 
 export default function LoginPage() {
   const [userId, setUserId] = useState("");
@@ -12,7 +14,7 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const Navigate =useNavigate()
-
+  const dispatch =useDispatch()
   async function handleSubmit(e) {
     e.preventDefault();
     setError("");
@@ -24,7 +26,7 @@ export default function LoginPage() {
     }
     try {
      const response = await axios.post(`${BASE_URL}/login-admin`, { userId, password }, { withCredentials: true });
-
+       dispatch(addadmin(response.data))
       setMessage("Login Succesfully")
       Navigate("/facultyhome")
      

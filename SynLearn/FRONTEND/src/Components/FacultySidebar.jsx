@@ -16,7 +16,6 @@ import BASE_URL from "./constants/BASE_URL";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 
-
 export default function FacultySidebar({ children }) {
   const [fullscreen, setFullscreen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -27,91 +26,98 @@ export default function FacultySidebar({ children }) {
   const location = useLocation();
   const dispatch = useDispatch();
 
- // Semesters and branches
-const semesters = {
-  "Semester 1": [
-    "Civil Engineering",
-    "Mechanical Engineering",
-    "Electrical and Electronics Engineering",
-    "Computer Science and Engineering",
-    "Computer Science & Engineering (IoT)",
-    "Fire Technology & Safety",
-    "Applied Science & Humanities"
-  ],
-  "Semester 2": [
-    "Civil Engineering",
-    "Mechanical Engineering",
-    "Electrical and Electronics Engineering",
-    "Computer Science and Engineering",
-    "Computer Science & Engineering (IoT)",
-    "Fire Technology & Safety",
-    "Applied Science & Humanities"
-  ],
-  "Semester 3": [
-    "Civil Engineering",
-    "Mechanical Engineering",
-    "Electrical and Electronics Engineering",
-    "Computer Science and Engineering",
-    "Computer Science & Engineering (IoT)",
-    "Fire Technology & Safety",
-    "Applied Science & Humanities"
-  ],
-  "Semester 4": [
-    "Civil Engineering",
-    "Mechanical Engineering",
-    "Electrical and Electronics Engineering",
-    "Computer Science and Engineering",
-    "Computer Science & Engineering (IoT)",
-    "Fire Technology & Safety",
-    "Applied Science & Humanities"
-  ],
-  "Semester 5": [
-    "Civil Engineering",
-    "Mechanical Engineering",
-    "Electrical and Electronics Engineering",
-    "Computer Science and Engineering",
-    "Computer Science & Engineering (IoT)",
-    "Fire Technology & Safety",
-    "Applied Science & Humanities"
-  ],
-  "Semester 6": [
-    "Civil Engineering",
-    "Mechanical Engineering",
-    "Electrical and Electronics Engineering",
-    "Computer Science and Engineering",
-    "Computer Science & Engineering (IoT)",
-    "Fire Technology & Safety",
-    "Applied Science & Humanities"
-  ],
-  "Semester 7": [
-    "Civil Engineering",
-    "Mechanical Engineering",
-    "Electrical and Electronics Engineering",
-    "Computer Science and Engineering",
-    "Computer Science & Engineering (IoT)",
-    "Fire Technology & Safety",
-    "Applied Science & Humanities"
-  ],
-  "Semester 8": [
-    "Civil Engineering",
-    "Mechanical Engineering",
-    "Electrical and Electronics Engineering",
-    "Computer Science and Engineering",
-    "Computer Science & Engineering (IoT)",
-    "Fire Technology & Safety",
-    "Applied Science & Humanities"
-  ]
-};
+  // Semester data with branch arrays
+  const semesters = {
+    "Semester 1": [
+      "Civil Engineering",
+      "Mechanical Engineering",
+      "Electrical and Electronics Engineering",
+      "Computer Science and Engineering",
+      "Computer Science & Engineering (IoT)",
+      "Fire Technology & Safety",
+      "Applied Science & Humanities",
+    ],
+    "Semester 2": [
+      "Civil Engineering",
+      "Mechanical Engineering",
+      "Electrical and Electronics Engineering",
+      "Computer Science and Engineering",
+      "Computer Science & Engineering (IoT)",
+      "Fire Technology & Safety",
+      "Applied Science & Humanities",
+    ],
+    "Semester 3": [
+      "Civil Engineering",
+      "Mechanical Engineering",
+      "Electrical and Electronics Engineering",
+      "Computer Science and Engineering",
+      "Computer Science & Engineering (IoT)",
+      "Fire Technology & Safety",
+      "Applied Science & Humanities",
+    ],
+    "Semester 4": [
+      "Civil Engineering",
+      "Mechanical Engineering",
+      "Electrical and Electronics Engineering",
+      "Computer Science and Engineering",
+      "Computer Science & Engineering (IoT)",
+      "Fire Technology & Safety",
+      "Applied Science & Humanities",
+    ],
+    "Semester 5": [
+      "Civil Engineering",
+      "Mechanical Engineering",
+      "Electrical and Electronics Engineering",
+      "Computer Science and Engineering",
+      "Computer Science & Engineering (IoT)",
+      "Fire Technology & Safety",
+      "Applied Science & Humanities",
+    ],
+    "Semester 6": [
+      "Civil Engineering",
+      "Mechanical Engineering",
+      "Electrical and Electronics Engineering",
+      "Computer Science and Engineering",
+      "Computer Science & Engineering (IoT)",
+      "Fire Technology & Safety",
+      "Applied Science & Humanities",
+    ],
+    "Semester 7": [
+      "Civil Engineering",
+      "Mechanical Engineering",
+      "Electrical and Electronics Engineering",
+      "Computer Science and Engineering",
+      "Computer Science & Engineering (IoT)",
+      "Fire Technology & Safety",
+      "Applied Science & Humanities",
+    ],
+    "Semester 8": [
+      "Civil Engineering",
+      "Mechanical Engineering",
+      "Electrical and Electronics Engineering",
+      "Computer Science and Engineering",
+      "Computer Science & Engineering (IoT)",
+      "Fire Technology & Safety",
+      "Applied Science & Humanities",
+    ],
+  };
 
+  // Generate clean slug for URLs from branch text
+  const slugify = (text) =>
+    text
+      .toLowerCase()
+      .replace(/&/g, "and") // replace & with and
+      .replace(/\s+/g, "-") // spaces to hyphens
+      .replace(/[^\w-]+/g, "") // remove invalid chars
+      .replace(/--+/g, "-") // collapse multiple hyphens
+      .replace(/^-+|-+$/g, ""); // trim hyphens at start/end
 
-  const menuItems = [
-    { name: "Home", icon: Home, path: "/facultyhome" },
-  ];
+  const menuItems = [{ name: "Home", icon: Home, path: "/facultyhome" }];
 
   const handleLogout = async () => {
     try {
       await axios.get(`${BASE_URL}/logout`, { withCredentials: true });
-        return navigate("/")
+      navigate("/");
     } catch (err) {
       console.error("Logout failed:", err);
     }
@@ -126,10 +132,8 @@ const semesters = {
     setActiveNoteCategory((prev) => (prev === category ? null : category));
   };
 
-  // Render menu function with flag for mobile view
   const renderMenu = (isMobile = false) => (
     <nav className="flex flex-col gap-2 mt-4">
-      {/* Static Menu Items */}
       {menuItems.map(({ name, icon: Icon, path }) => {
         const active = location.pathname === path;
         return (
@@ -140,7 +144,9 @@ const semesters = {
               if (isMobile) setIsMobileMenuOpen(false);
             }}
             className={`flex items-center gap-3 px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 ${
-              active ? "bg-gradient-to-r from-sky-500 via-teal-400 to-green-400 text-white" : "text-gray-900 hover:bg-gray-200 hover:text-gray-900"
+              active
+                ? "bg-gradient-to-r from-sky-500 via-teal-400 to-green-400 text-white"
+                : "text-gray-900 hover:bg-gray-200 hover:text-gray-900"
             }`}
           >
             <Icon className="w-5 h-5" />
@@ -149,8 +155,7 @@ const semesters = {
         );
       })}
 
-      {/* Semester Dropdowns */}
-      {Object.entries(semesters).map(([semester, categories]) => {
+      {Object.entries(semesters).map(([semester, branches]) => {
         const semesterActive = activeSemester === semester;
         return (
           <div key={semester} className="w-full">
@@ -173,11 +178,10 @@ const semesters = {
               )}
             </button>
 
-            {/* Notes Categories Dropdown */}
             {semesterActive && (
               <div className="ml-6 mt-2 flex flex-col gap-1">
-                {categories.map((cat, idx) => {
-                  const catPath = `/uploaddoc/${semester}/${cat.replace(/\s+/g, "").toLowerCase()}`;
+                {branches.map((branchName, idx) => {
+                  const catPath = `/uploaddoc/${semester}/${slugify(branchName)}`;
                   const catActive = location.pathname === catPath;
                   return (
                     <button
@@ -185,7 +189,7 @@ const semesters = {
                       onClick={() => {
                         navigate(catPath);
                         if (isMobile) setIsMobileMenuOpen(false);
-                        setActiveNoteCategory(cat);
+                        setActiveNoteCategory(branchName);
                       }}
                       className={`px-4 py-2 text-sm rounded-lg text-left transition-all duration-200 ${
                         catActive
@@ -193,7 +197,7 @@ const semesters = {
                           : "bg-white text-gray-700 hover:bg-sky-400 hover:text-white"
                       }`}
                     >
-                      {cat}
+                      {branchName}
                     </button>
                   );
                 })}
@@ -207,15 +211,15 @@ const semesters = {
 
   return (
     <div className="min-h-screen w-full bg-gray-100 flex relative">
-      {/* Floating Sidebar: 80% viewport height excluding navbar/footer (assumed 4rem navbar + 4rem footer = 8rem) */}
-      {/* Adjust top and bottom so sidebar doesn't overlap navbar/footer */}
+      {/* Desktop Sidebar */}
       <aside
         className="hidden md:flex flex-col justify-between bg-white shadow-xl rounded-2xl border border-gray-200 fixed left-6 top-20"
         style={{
           height: "80vh",
           width: "320px",
           zIndex: 1000,
-          background: "linear-gradient(to right, #38bdf8, #2dd4bf, #4ade80)", // sky-500 via teal-400 to green-400
+          background:
+            "linear-gradient(to right, #38bdf8, #2dd4bf, #4ade80)", // sky-500 via teal-400 to green-400
           color: "white",
         }}
       >
@@ -239,12 +243,16 @@ const semesters = {
         </div>
       </aside>
 
-      {/* Desktop toggle button for collapsing sidebar expanded or minimized (optional) */}
+      {/* Desktop toggle button for collapsing sidebar (optional) */}
       <button
         onClick={() => setFullscreen(!fullscreen)}
         className="hidden md:flex fixed top-24 left-2 z-40 p-2 rounded-full bg-gradient-to-r from-sky-500 via-teal-400 to-green-400 text-white shadow-lg hover:brightness-110 transition duration-200"
       >
-        {fullscreen ? <ArrowRight className="w-5 h-5" /> : <ChevronLeft className="w-5 h-5" />}
+        {fullscreen ? (
+          <ArrowRight className="w-5 h-5" />
+        ) : (
+          <ChevronLeft className="w-5 h-5" />
+        )}
       </button>
 
       {/* Mobile Sidebar Toggle Button */}
@@ -269,7 +277,10 @@ const semesters = {
           </div>
           <div className="p-6 space-y-3">{renderMenu(true)}</div>
           <div className="px-6 py-3 border-t border-gray-200 text-xs text-gray-500">
-            <button onClick={handleLogout} className="flex items-center gap-2 hover:text-green-600">
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-2 hover:text-green-600"
+            >
               <LogOut className="w-4 h-4" /> Logout
             </button>
             <div className="mt-2 text-center">© 2025 Company</div>
