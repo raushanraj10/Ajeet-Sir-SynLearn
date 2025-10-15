@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import axios from "axios"
 import FacultySidebar from "./FacultySidebar";
-import BASE_URL from "../constants/BASE_URL";
+import BASE_URL from "./constants/BASE_URL";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {

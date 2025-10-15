@@ -1,6 +1,6 @@
 import { Provider } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import AppStore from "./Utils/Appstore";
+import AppStore from "./Components/Utils/Appstore";
 import Body from "./Body";
 import UploadDocumentPage from "./Components/UploadDocumentPage";
 import FacultyHome from "./Components/FacultyHome";

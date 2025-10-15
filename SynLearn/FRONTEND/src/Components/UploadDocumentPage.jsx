@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import FacultySidebar from "./FacultySidebar";
-import BASE_URL from "../constants/BASE_URL"
+import BASE_URL from "./constants/BASE_URL";
 
 const docTypes = [
   "Notes",

@@ -11,7 +11,7 @@ import {
   ChevronRight as ArrowRight,
 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
-import BASE_URL from "../constants/BASE_URL.JS";
+import BASE_URL from "./constants/BASE_URL";
 
 import { useDispatch } from "react-redux";
 import axios from "axios";
