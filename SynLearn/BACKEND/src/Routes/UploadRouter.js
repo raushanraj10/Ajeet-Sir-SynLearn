@@ -3,6 +3,7 @@ const upload = require("../middlewares/Multer");
 const { uploadOnCloudinary } = require("../config/Cloudinary");
 const ModelTeacherFile = require("../Models/ModelTeacherFile");
 
+
 const UploadRouter=express.Router();
 
 
@@ -73,6 +74,20 @@ UploadRouter.post("/uploads", upload.array("files", 5), async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+UploadRouter.get("/documents/:semester/:branch", async (req, res) => {
+  try {
+    const { semester, branch } = req.params; // ✅ Correct
+    console.log("Received:", semester, branch);
+
+    const data = await ModelTeacherFile.find({ semester, branch });
+    res.send(data);
+  } catch (err) {
+    console.error("Error fetching documents:", err);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
 
 
 module.exports = UploadRouter; 

@@ -1,3 +1,4 @@
+import { Outlet } from "react-router-dom"
 import FacultySidebar from "./Components/FacultySidebar"
 import LoginPage from "./Components/LoginPage"
 import SynLearnNavbar from "./Components/SynLearnNavbar"
@@ -8,7 +9,7 @@ const Body=()=>{
         <>
         <SynLearnNavbar/>
         {/* <LoginPage/> */}
-        <UploadDocumentPage/>
+       <Outlet/>
         
         </>
     )

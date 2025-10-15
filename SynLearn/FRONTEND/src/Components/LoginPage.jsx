@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import axios from "axios"
 import FacultySidebar from "./FacultySidebar";
+import BASE_URL from "../constants/BASE_URL";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
   const [userId, setUserId] = useState("");
@@ -9,6 +11,7 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  const Navigate =useNavigate()
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -20,8 +23,10 @@ export default function LoginPage() {
       return;
     }
     try {
-      const response = await axios.post("http://localhost:5000/login-admin",{userId,password},{withCredentials:true})
-      setMessage(response.data)
+     const response = await axios.post(`${BASE_URL}/login-admin`, { userId, password }, { withCredentials: true });
+
+      setMessage("Login Succesfully")
+      Navigate("/facultyhome")
      
     } catch (err) {
       setError("Network error: " + err.message);

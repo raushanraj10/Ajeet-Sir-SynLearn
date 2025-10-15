@@ -3,10 +3,12 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import FacultySidebar from "./FacultySidebar";
+import BASE_URL from "../constants/BASE_URL"
 
 const docTypes = [
   "Notes",
-  "PSU Gate",
+  "Gate",
+  "PSU",
   "Mid Sem Content",
   "End Sem Content",
   "Last Time Content",
@@ -26,9 +28,6 @@ export default function UploadDocumentPage() {
   const [file, setFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [loading, setLoading] = useState(false);
-
-  const BASE_URL = "http://localhost:5000"; // Set your backend URL here
-
   // Fetch existing documents for semester & branch
   useEffect(() => {
     fetchDocuments();
@@ -36,9 +35,8 @@ export default function UploadDocumentPage() {
 
   const fetchDocuments = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/documents`, {
-        params: { semester, branch },
-      });
+      
+      const res = await axios.get(`${BASE_URL}/documents/${semester}/${branch}`, {withCredentials:true})
       setDocuments(res.data);
     } catch (err) {
       console.error("Failed to fetch documents:", err);

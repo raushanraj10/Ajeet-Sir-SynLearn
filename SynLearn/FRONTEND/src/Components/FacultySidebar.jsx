@@ -105,7 +105,7 @@ const semesters = {
 
 
   const menuItems = [
-    { name: "Home", icon: Home, path: "/teacherhome" },
+    { name: "Home", icon: Home, path: "/facultyhome" },
   ];
 
   const handleLogout = async () => {
