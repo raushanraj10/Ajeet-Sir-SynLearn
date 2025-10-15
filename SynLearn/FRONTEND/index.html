@@ -5,9 +5,77 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SynLearn</title>
+
+    <style>
+      /* 🌟 Shimmer startup screen styles */
+      #startup-shimmer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background: white;
+        transition: opacity 0.5s ease;
+      }
+
+      .shimmer-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .shimmer-text {
+        font-size: 2rem;
+        font-weight: 600;
+        background: linear-gradient(
+          90deg,
+          #38bdf8,
+          #2dd4bf,
+          #4ade80,
+          #2dd4bf,
+          #38bdf8
+        );
+        background-size: 200%;
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        animation: shimmer 1s ease-in-out infinite;
+        user-select: none;
+      }
+
+      @keyframes shimmer {
+        0% {
+          background-position: 200% center;
+        }
+        100% {
+          background-position: -200% center;
+        }
+      }
+    </style>
   </head>
+
   <body>
-    <div id="root"></div>
+    <!-- 🌈 Shimmer loading screen -->
+    <div id="startup-shimmer">
+      <div class="shimmer-wrapper">
+        <span class="shimmer-text">SynLearn</span>
+      </div>
+    </div>
+
+    <!-- React Root -->
+    <div id="root" style="display: none;"></div>
+
+    <script>
+      // ⏳ Wait 1s, then fade out shimmer and show React app
+      setTimeout(() => {
+        const shimmer = document.getElementById("startup-shimmer");
+        shimmer.style.opacity = "0";
+        setTimeout(() => {
+          shimmer.style.display = "none";
+          document.getElementById("root").style.display = "block";
+        }, 500); // fade duration
+      }, 1000);
+    </script>
+
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
