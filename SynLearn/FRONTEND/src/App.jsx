@@ -1,7 +1,8 @@
 import { Provider } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AppStore from "./Utils/Appstore";
-import BASE from "./Components/Base";
+import Body from "./Body";
+import UploadDocumentPage from "./Components/UploadDocumentPage";
 
 
 function App() {
@@ -9,7 +10,9 @@ function App() {
      <Provider store={AppStore}>
       <BrowserRouter basename="/">
       <Routes>
-        <Route path="/" element={<BASE />} />
+        <Route path="/" element={<Body/>}>
+        <Route path="/uploaddoc/:semester/:branch" element={<UploadDocumentPage/>}/>
+        </Route>
       </Routes>
     </BrowserRouter>
    </Provider>
