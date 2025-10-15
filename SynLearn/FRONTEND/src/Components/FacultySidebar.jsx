@@ -111,7 +111,7 @@ const semesters = {
   const handleLogout = async () => {
     try {
       await axios.get(`${BASE_URL}/logout`, { withCredentials: true });
-    
+        return navigate("/")
     } catch (err) {
       console.error("Logout failed:", err);
     }
