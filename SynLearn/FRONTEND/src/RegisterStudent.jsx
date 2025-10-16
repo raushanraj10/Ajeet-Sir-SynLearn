@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Select from "react-select";
 import Swal from "sweetalert2";
+import BASE_URL from "./Components/constants/BASE_URL";
 
 // Custom shimmer component
 function Shimmer() {
@@ -94,9 +95,10 @@ export default function RegisterStudent() {
   // Checks existence of registration number via API
   const checkIfExists = async (registrationNumber) => {
     try {
-      const response = await axios.post("http://localhost:5000/check-existence", {
-        registration: registrationNumber,
-      });
+      const response = await axios.post(`${BASE_URL}/check-existence`, {
+  registration: registrationNumber,
+});
+
 
       if (response.data.exists) {
         setFormErrors((prev) => ({
@@ -151,7 +153,7 @@ export default function RegisterStudent() {
 
   const registerStudent = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/register-student", formData);
+      const response = await axios.post(`${BASE_URL}/register-student`, formData);
       return response.data;
     } catch (err) {
       console.error("Registration error:", err);
@@ -205,7 +207,7 @@ export default function RegisterStudent() {
         title: "Success",
         text: "Student registered successfully!",
       });
-      navigate("/loginselectorpage");
+      navigate("/");
     } catch (err) {
       setLoading(false);
       await Swal.fire({

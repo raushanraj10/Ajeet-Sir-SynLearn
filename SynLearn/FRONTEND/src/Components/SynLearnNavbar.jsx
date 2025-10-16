@@ -213,7 +213,7 @@ export default function SynLearnNavbar() {
   // Detect user and admin in redux (adjust slice names as needed)
   const user = useSelector((state) => state?.userdata);
   const admin = useSelector((state) => state?.admindata);
-console.log(admin)
+
   // Display name and user type logic
   let currentUser = null;
   let currentType = null;
