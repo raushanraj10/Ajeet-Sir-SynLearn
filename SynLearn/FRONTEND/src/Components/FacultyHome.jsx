@@ -200,7 +200,7 @@ export default function FacultyHome() {
 
         {/* Tabs */}
         <div className="flex justify-center mb-8">
-          <div className="inline-flex rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+          <div className="inline-flex rounded-lg shadow-sm  overflow-hidden">
             <button
               className={`px-6 py-2 font-medium transition ${
                 activeTab === "requested"
@@ -225,7 +225,7 @@ export default function FacultyHome() {
         </div>
 
         {/* Data */}
-        <div className="bg-gray-50 rounded-xl p-6 border border-gray-200 shadow-inner">
+        <div className="rounded-xl p-6   shadow-inner">
           {loading ? <ShimmerGrid /> : renderGroupedStudents(activeTab)}
         </div>
       </div>

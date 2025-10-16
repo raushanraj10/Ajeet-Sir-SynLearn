@@ -6,6 +6,7 @@ import {
   Layers,
   Menu as MenuIcon,
   X as CloseIcon,
+  Search,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -41,20 +42,26 @@ export default function StudentSidebarDocs() {
   const user = useSelector((state) => state.userdata);
   const { semester, branch } = user || {};
 
-  // Responsive sidebar
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
- 
-
   const [activeDocType, setActiveDocType] = useState(docTypes[0]);
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     if (!semester || !branch) return;
     fetchDocuments();
     // eslint-disable-next-line
   }, [semester, branch, activeDocType]);
+
+  const slugify = (text) =>
+    text
+      .toLowerCase()
+      .replace(/&/g, "and")
+      .replace(/\s+/g, "-")
+      .replace(/[^\w-]+/g, "")
+      .replace(/--+/g, "-")
+      .replace(/^-+|-+$/g, "");
 
   const fetchDocuments = async () => {
     setLoading(true);
@@ -74,22 +81,19 @@ export default function StudentSidebarDocs() {
     setLoading(false);
   };
 
-  const slugify = (text) =>
-    text
-      .toLowerCase()
-      .replace(/&/g, "and")
-      .replace(/\s+/g, "-")
-      .replace(/[^\w-]+/g, "")
-      .replace(/--+/g, "-")
-      .replace(/^-+|-+$/g, "");
+  const filteredDocs = documents.filter((doc) =>
+    doc.originalFilename.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-tr from-blue-100 via-green-50 to-green-100 flex flex-col">
+    <div className="min-h-screen w-full bg-gradient-to-tr from-blue-100 via-green-50 to-green-100 flex flex-col pt-24 sm:pt-28 px-4 sm:px-8">
       {/* Top Header */}
-      <div className="flex items-center gap-3 px-4 sm:px-8 pt-8 pb-4">
+      <div className="flex items-center gap-3 pb-6">
         <Layers className="w-10 h-10 text-sky-600 bg-white shadow rounded-lg p-2" />
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-sky-700">Study Resources</h1>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-sky-700">
+            Study Resources
+          </h1>
           <p className="text-gray-500 sm:text-lg text-base">
             Semester {semester} - {branch}
           </p>
@@ -130,15 +134,23 @@ export default function StudentSidebarDocs() {
 
         {/* Sidebar Mobile Drawer */}
         {sidebarOpen && (
-          <div className="fixed inset-0 z-50 bg-black bg-opacity-30 flex" onClick={() => setSidebarOpen(false)}>
+          <div
+            className="fixed inset-0 z-50 bg-black bg-opacity-30 flex"
+            onClick={() => setSidebarOpen(false)}
+          >
             <aside
               className="w-11/12 max-w-xs bg-white shadow-md rounded-r-2xl p-6 flex flex-col h-full"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center gap-2 mb-6">
                 <Star className="w-5 h-5 text-green-500" />
-                <h2 className="font-semibold text-lg text-gray-800">Categories</h2>
-                <button className="ml-auto" onClick={() => setSidebarOpen(false)}>
+                <h2 className="font-semibold text-lg text-gray-800">
+                  Categories
+                </h2>
+                <button
+                  className="ml-auto"
+                  onClick={() => setSidebarOpen(false)}
+                >
                   <CloseIcon className="w-6 h-6 text-gray-500" />
                 </button>
               </div>
@@ -166,9 +178,21 @@ export default function StudentSidebarDocs() {
         )}
 
         {/* Main Section */}
-        <main className="flex-1 max-w-3xl px-3 sm:px-0 mx-auto">
+        <main className="flex-1 max-w-3xl mx-auto">
+          {/* Search Bar */}
+          <div className="flex items-center bg-white p-3 rounded-xl shadow-sm mb-6">
+            <Search className="text-gray-500 w-5 h-5 mr-3" />
+            <input
+              type="text"
+              placeholder="Search documents by name..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="flex-1 outline-none text-gray-700 text-base sm:text-lg"
+            />
+          </div>
+
           {/* Section Heading */}
-          <div className="mt-3 mb-5">
+          <div className="mt-2 mb-5">
             <h2 className="text-xl sm:text-2xl font-bold flex items-center gap-3">
               {activeDocType}
             </h2>
@@ -181,11 +205,15 @@ export default function StudentSidebarDocs() {
           {/* Documents List */}
           <div className="flex flex-col gap-4 sm:gap-6">
             {loading ? (
-              <div className="text-center text-gray-400 py-8">Loading documents...</div>
-            ) : documents.length === 0 ? (
-              <div className="text-center text-gray-400 py-8">No documents found for this category.</div>
+              <div className="text-center text-gray-400 py-8">
+                Loading documents...
+              </div>
+            ) : filteredDocs.length === 0 ? (
+              <div className="text-center text-gray-400 py-8">
+                No matching documents found.
+              </div>
             ) : (
-              documents
+              filteredDocs
                 .slice()
                 .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
                 .map((doc) => (
@@ -199,9 +227,12 @@ export default function StudentSidebarDocs() {
                         <FileText className="w-8 h-8 text-green-600" />
                       </div>
                       <div>
-                        <div className="font-bold text-base sm:text-lg text-gray-900 break-all">{doc.originalFilename}</div>
+                        <div className="font-bold text-base sm:text-lg text-gray-900 break-all">
+                          {doc.originalFilename}
+                        </div>
                         <div className="text-gray-500 text-sm sm:text-base font-medium mt-1">
-                          {doc.type} &nbsp; &middot; &nbsp; {formatDate(doc.createdAt)}
+                          {doc.type} &nbsp; &middot; &nbsp;{" "}
+                          {formatDate(doc.createdAt)}
                         </div>
                       </div>
                     </div>

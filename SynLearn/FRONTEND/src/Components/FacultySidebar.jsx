@@ -119,7 +119,7 @@ export default function FacultySidebar({ children }) {
     try {
       await axios.get(`${BASE_URL}/logout`, { withCredentials: true });
        dispatch(removeadmin())
-      return navigate("/");
+      return navigate("/login-by-admin");
     } catch (err) {
       console.error("Logout failed:", err);
     }
@@ -295,7 +295,7 @@ export default function FacultySidebar({ children }) {
         className="flex-1 p-4 md:pt-24 md:pl-80 md:pr-6"
         style={{ minHeight: "calc(100vh - 8rem)" }}
       >
-        <div className="bg-white rounded-2xl shadow-xl h-full border border-gray-200 p-6 overflow-y-auto min-h-full">
+        <div className="bg-gray-100   p-6 overflow-y-auto min-h-full">
           {children}
         </div>
       </main>

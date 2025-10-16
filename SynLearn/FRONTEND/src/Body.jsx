@@ -9,6 +9,7 @@ import BASE_URL from "./Components/constants/BASE_URL"
 import { addadmin } from "./Components/Utils/AdminSlice"
 import { adduser } from "./Components/Utils/UserSlice"
 import { useDispatch } from "react-redux"
+import Footer from "./Components/Footer"
 
 
 
@@ -50,12 +51,18 @@ const Body=()=>{
 
 
     return (
-        <>
-        <SynLearnNavbar/>
-        {/* <LoginPage/> */}
-       <Outlet/>
-        
-        </>
+       <div className="min-h-screen flex flex-col bg-gray-100">
+      {/* Navbar */}
+      <SynLearnNavbar />
+
+      {/* Page Content */}
+      <main className="flex-1">
+        <Outlet />
+      </main>
+
+      {/* Footer */}
+      <Footer />
+    </div>
     )
 }
 export default Body

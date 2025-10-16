@@ -4,8 +4,10 @@ import axios from "axios"
 import FacultySidebar from "./FacultySidebar";
 import BASE_URL from "./constants/BASE_URL";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addadmin } from "./Utils/AdminSlice";
+import { useEffect } from "react";
+import { use } from "react";
 
 export default function LoginPage() {
   const [userId, setUserId] = useState("");
@@ -34,10 +36,21 @@ export default function LoginPage() {
       setError("Network error: " + err.message);
     }
   }
+const student=useSelector((store)=>store?.userdata)
+const admin=useSelector((store)=>store?.admindata)
+  useEffect(()=>{
+if(student){
+  return Navigate("/studenthome")
+}
+if(admin){
+  return Navigate("/facultyhome")
+}
+
+  },[student,admin])
 
   return (
  
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
       <form
         onSubmit={handleSubmit}
         className="max-w-md w-full bg-white p-8 rounded-2xl shadow-lg"

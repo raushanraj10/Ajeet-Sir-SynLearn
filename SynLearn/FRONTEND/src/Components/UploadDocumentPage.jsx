@@ -135,7 +135,7 @@ const handleDeleteDocument = async (docId) => {
 
   return (
     <FacultySidebar>
-      <div className="max-w-6xl mx-auto p-6 bg-white rounded-lg shadow space-y-6 min-h-[80vh]">
+      <div className="max-w-6xl mx-auto p-6 bg-gray-100 space-y-6 min-h-[80vh]">
         {/* Header with formatted semester and branch */}
         <h2 className="text-3xl font-semibold text-gray-800">
           Documents for{" "}
@@ -177,120 +177,157 @@ const handleDeleteDocument = async (docId) => {
           </button>
         </div>
 
-        {/* Documents List */}
-        <div className="overflow-auto max-h-[28rem] border rounded p-4 bg-gray-50">
-          {filteredDocs.length === 0 ? (
-            <p className="text-center text-gray-500 text-lg py-10">
-              No documents found.
-            </p>
-          ) : (
-            <ul className="space-y-3">
-              // Inside your documents map
-
-{filteredDocs.map((doc) => (
-  <li
-    key={doc._id}
-    className="flex items-center justify-between bg-white p-3 rounded shadow-sm hover:shadow-md transition"
-  >
-    <div>
-      <span className="font-semibold text-gray-800">{doc.originalFilename}</span>{" "}
-      <span className="text-xs text-gray-500 italic">({doc.type})</span>
-    </div>
-    <div className="flex items-center gap-4">
-      <a
-        href={doc.pdfUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex items-center gap-1 text-sky-600 hover:underline font-medium"
-      >
-        <FileText className="w-5 h-5" />
-        View PDF
-      </a>
-      
-      {/* Delete button */}
-      <button
-        onClick={() => handleDeleteDocument(doc._id)}
-        className="text-red-600 hover:text-red-800 font-semibold"
-        title="Delete Document"
-        type="button"
-      >
-        Delete
-      </button>
-    </div>
-  </li>
-))}
-
-            </ul>
-          )}
-        </div>
-
-        {/* Upload Form */}
-        {showUploadForm && (
-          <div className="border rounded p-6 bg-gray-50 space-y-6 max-w-lg">
-            <h3 className="text-xl font-semibold mb-4 text-gray-700">
-              Upload New Document
-            </h3>
-
+       {/* Documents List */}
+<div className="overflow-auto max-h-[28rem] bg-gray-100 rounded-xl shadow-inner p-4">
+  {filteredDocs.length === 0 ? (
+    <p className="text-center text-gray-500 text-lg py-10">
+      No documents found.
+    </p>
+  ) : (
+    <ul className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {filteredDocs.map((doc) => (
+        <li
+          key={doc._id}
+          className="group flex flex-col justify-between bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-lg transition duration-300 p-4"
+        >
+          <div className="flex items-start justify-between">
             <div>
-              <label className="block mb-1 font-medium text-gray-700">Select Type</label>
-              <select
-                value={uploadType}
-                onChange={(e) => setUploadType(e.target.value)}
-                className="w-full border rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-sky-400"
-              >
-                {docTypes.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </select>
+              <h3 className="font-semibold text-gray-800 break-words text-base md:text-lg">
+                {doc.originalFilename}
+              </h3>
+              <p className="text-sm text-gray-500 italic mt-1">
+                Type: {doc.type}
+              </p>
             </div>
+          </div>
 
-            <div>
-              <label className="block mb-1 font-medium text-gray-700">File Name</label>
-              <input
-                type="text"
-                value={fileName}
-                onChange={(e) => setFileName(e.target.value)}
-                className="w-full border rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-sky-400"
-                placeholder="Enter file name"
-              />
-            </div>
-
-            <div>
-              <label className="block mb-1 font-medium text-gray-700">Select File (PDF)</label>
-              <input
-                type="file"
-                accept="application/pdf"
-                onChange={(e) => {
-                  setFile(e.target.files[0]);
-                  if (e.target.files[0]) setFileName(e.target.files[0].name);
-                }}
-                className="w-full"
-              />
-            </div>
-
-            {uploadProgress > 0 && (
-              <div className="relative w-full h-5 bg-gray-300 rounded-full overflow-hidden">
-                <div
-                  className="absolute top-0 left-0 h-5 bg-green-500"
-                  style={{ width: `${uploadProgress}%` }}
-                />
-                <span className="absolute right-3 top-0 text-xs font-semibold text-white leading-5">
-                  {uploadProgress}%
-                </span>
-              </div>
-            )}
+          <div className="mt-4 flex items-center justify-between">
+            <a
+              href={doc.pdfUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 text-sky-600 hover:text-sky-700 font-medium transition"
+            >
+              <FileText className="w-5 h-5" />
+              <span>View PDF</span>
+            </a>
 
             <button
-              onClick={handleUpload}
-              disabled={loading}
-              className="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition disabled:opacity-50"
+              onClick={() => handleDeleteDocument(doc._id)}
+              className="flex items-center gap-1 text-red-600 hover:text-red-700 font-medium transition"
+              title="Delete Document"
+              type="button"
             >
-              {loading ? "Uploading..." : "Upload Document"}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+              <span>Delete</span>
             </button>
           </div>
+
+          <div className="mt-3 border-t pt-2 text-xs text-gray-400 flex justify-between">
+            <span>Uploaded: {new Date(doc.createdAt).toLocaleDateString()}</span>
+            <span>Size: {(doc.size / 1024 / 1024).toFixed(2)} MB</span>
+          </div>
+        </li>
+      ))}
+    </ul>
+  )}
+</div>
+
+
+     {/* Upload Form Modal */}
+{showUploadForm && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center  bg-opacity-10 backdrop-blur-sm">
+    <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 p-6 animate-fadeIn">
+      <h3 className="text-2xl font-semibold mb-4 text-center bg-gradient-to-r from-sky-500 via-teal-400 to-green-400 bg-clip-text text-transparent">
+        Upload New Document
+      </h3>
+
+      <div className="space-y-4">
+        <div>
+          <label className="block mb-1 font-medium text-gray-700">Select Type</label>
+          <select
+            value={uploadType}
+            onChange={(e) => setUploadType(e.target.value)}
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-sky-400"
+          >
+            {docTypes.map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label className="block mb-1 font-medium text-gray-700">File Name</label>
+          <input
+            type="text"
+            value={fileName}
+            onChange={(e) => setFileName(e.target.value)}
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-sky-400"
+            placeholder="Enter file name"
+          />
+        </div>
+
+        <div>
+          <label className="block mb-1 font-medium text-gray-700">Select File (PDF)</label>
+          <input
+            type="file"
+            accept="application/pdf"
+            onChange={(e) => {
+              setFile(e.target.files[0]);
+              if (e.target.files[0]) setFileName(e.target.files[0].name);
+            }}
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-sky-400"
+          />
+        </div>
+
+        {uploadProgress > 0 && (
+          <div className="relative w-full h-5 bg-gray-200 rounded-full overflow-hidden mt-2">
+            <div
+              className="absolute top-0 left-0 h-5 bg-gradient-to-r from-green-400 to-sky-500 transition-all"
+              style={{ width: `${uploadProgress}%` }}
+            />
+            <span className="absolute inset-0 flex items-center justify-center text-xs font-semibold text-white">
+              {uploadProgress}%
+            </span>
+          </div>
         )}
+      </div>
+
+      {/* Buttons */}
+      <div className="flex justify-between mt-6 gap-3">
+        <button
+          onClick={() => setShowUploadForm(false)}
+          className="w-1/2 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition"
+        >
+          Cancel
+        </button>
+        <button
+          onClick={handleUpload}
+          disabled={loading}
+          className="w-1/2 py-2 bg-gradient-to-r from-sky-500 to-green-400 text-white font-semibold rounded-lg hover:brightness-110 transition disabled:opacity-50"
+        >
+          {loading ? "Uploading..." : "Upload"}
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
       </div>
     </FacultySidebar>
   );

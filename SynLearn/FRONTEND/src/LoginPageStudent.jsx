@@ -4,8 +4,9 @@ import axios from "axios";
 import BASE_URL from "./Components/constants/BASE_URL";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { adduser } from "./Components/Utils/UserSlice";
+import { useEffect } from "react";
 
 
 export default function LoginPageStudent() {
@@ -86,9 +87,21 @@ export default function LoginPageStudent() {
       );
     }
   }
+const Navigate=useNavigate()
+  const student=useSelector((store)=>store?.userdata)
+const admin=useSelector((store)=>store?.admindata)
+  useEffect(()=>{
+if(student){
+  return Navigate("/studenthome")
+}
+if(admin){
+  return Navigate("/facultyhome")
+}
+  },[student,admin])
+
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
       <form onSubmit={handleSubmit} className="max-w-md w-full bg-white p-8 rounded-2xl shadow-lg">
         <h2 className="mb-6 text-2xl font-semibold text-center text-sky-700">
           Login to SynLearn
