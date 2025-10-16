@@ -28,15 +28,6 @@ const Body=()=>{
     }
   };
 
-  const callalumni = async () => {
-    try {
-      const res = await axios.get(`${BASE_URL}/getteacherprofile`, { withCredentials: true });
-      dispatch(adduser(res.data));
-    } catch (error) {
-      console.error("Alumni fetch failed:", error);
-    }
-  };
-
   const calladmin = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/getadminprofile`, { withCredentials: true });
@@ -48,7 +39,7 @@ const Body=()=>{
 
   useEffect(() => {
     const loadData = async () => {
-      await Promise.all([callstudent(), callalumni(), calladmin()]);
+      await Promise.all([callstudent(), calladmin()]);
       setLoading(false);
     };
 
