@@ -156,10 +156,15 @@ const final =await ModelAdmin.findOne({userId}).select("userId _id fullName")
   }
 });
 
-AuthRouter.get("/logout",async (req,res)=>{
-    res.cookie("token","",{maxAge:0})
-    res.send("Logout Successfully")
-})
+AuthRouter.get("/logout", async (req, res) => {
+  res.cookie("token", "", {
+    secure: true,
+    sameSite: "none",
+    expires: new Date(0),
+  });
+  res.status(200).json({ message: "Logout successful" });
+});
+
 
 
 
