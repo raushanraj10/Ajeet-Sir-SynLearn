@@ -11,12 +11,12 @@ const UploadRouter=express.Router();
 
 // 📌 Single file upload
 UploadRouter.post(
-  "/upload",
+  "/uploadfromfaculty",
   upload.single("file"),
   async (req, res) => {
     try {
  
-      const { semester, branch, originalFilename,type } = req.body;
+      const { semester, branch, originalFilename,type,type2,subject,year } = req.body;
   
       // Upload file to Cloudinary
       const result = await uploadOnCloudinary(req.file.path);
@@ -27,7 +27,10 @@ UploadRouter.post(
         branch,
         originalFilename,
         pdfUrl: result.secure_url, // ✅ consistent
-        type
+        type,
+        type2,
+        subject,
+        year
       });
 
       await model.save();
