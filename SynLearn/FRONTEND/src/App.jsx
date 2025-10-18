@@ -8,6 +8,8 @@ import LoginPage from "./Components/LoginPage";
 import RegisterStudent from "./RegisterStudent";
 import LoginPageStudent from "./LoginPageStudent";
 import StudentSidebarDocs from "./Components/StudentSidebarDocs";
+import HomePage from "./Pages/HomePage";
+import CategoriesPage from "./Pages/CategoriesPage";
 
 
 const NotFound = () => {
@@ -40,7 +42,9 @@ function App() {
       <BrowserRouter basename="/">
         <Routes>
           <Route path="/" element={<Body />}>
-            <Route index element={<LoginPageStudent />} />
+          <Route path="/" element={<HomePage />} />
+           <Route path="/categoriespage" element={<CategoriesPage />} />
+            <Route path="/loginpage" element={<LoginPageStudent />} />
             <Route path="login-by-admin" element={<LoginPage />} />
             <Route path="studenthome" element={<StudentSidebarDocs />} />
             <Route path="uploaddoc/:semester/:branch" element={<UploadDocumentPage />} />

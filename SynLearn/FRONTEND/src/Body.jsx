@@ -53,7 +53,7 @@ const Body=()=>{
     return (
        <div className="min-h-screen flex flex-col bg-gray-100">
       {/* Navbar */}
-      <SynLearnNavbar />
+      {/* <SynLearnNavbar /> */}
 
       {/* Page Content */}
       <main className="flex-1">
@@ -61,7 +61,7 @@ const Body=()=>{
       </main>
 
       {/* Footer */}
-      <Footer />
+      {/* <Footer /> */}
     </div>
     )
 }
