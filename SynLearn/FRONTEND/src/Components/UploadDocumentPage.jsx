@@ -161,7 +161,7 @@ export default function UploadDocumentPage() {
 
   return (
     <FacultySidebar>
-      <div className="max-w-6xl mx-auto p-6 mt-4 bg-gray-100 space-y-6 min-h-[80vh]">
+      <div className="max-w-6xl mx-auto p-6  bg-gray-100 space-y-6 ">
         <h2 className="text-3xl font-semibold text-gray-800">
           Documents for{" "}
           <span className="text-sky-600 font-bold">
