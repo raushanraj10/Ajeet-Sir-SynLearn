@@ -111,8 +111,13 @@ export default function UploadDocumentPage() {
       Swal.fire("Error", "Please fill all fields.", "error");
       return;
     }
-     if(uploadType==="Previous Year Question(PYQs)"||uploadType==="Last Time Content"&&uploadType2==="--Select--")
-     return Swal.fire("Error", "Select Type", "error");
+    if (
+  (uploadType === "Previous Year Question(PYQs)" || uploadType === "Last Time Content") &&
+  uploadType2 === "--Select--"
+) {
+  return Swal.fire("Error", "Select Type", "error");
+}
+
     // Capitalize first letter of filename
     const formattedFileName =
       fileName.charAt(0).toUpperCase() + fileName.slice(1);
@@ -263,7 +268,7 @@ export default function UploadDocumentPage() {
                     </h3>
                     <p className="text-sm text-gray-500 italic mt-1">
   Type: {doc.type} <br />
-  {doc.type === "Previous Year Question(PYQs)" ||doc.type === "Last Time Content"&& (
+  {(doc.type === "Previous Year Question(PYQs)" ||doc.type === "Last Time Content")&& (
     <>
       Content: {doc.type2} <br />
     </>
@@ -347,22 +352,25 @@ export default function UploadDocumentPage() {
                 </div>
 
 
-                {uploadType==="Previous Year Question(PYQs)"||uploadType==="Last Time Content"&&<div>
-                  <label className="block mb-1 font-medium text-gray-700">
-                    Select Type
-                  </label>
-                  <select
-                    value={uploadType2}
-                    onChange={(e) => setUploadType2(e.target.value)}
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-sky-400"
-                  >
-                    {docTypes2.map((type) => (
-                      <option key={type} value={type}>
-                        {type}
-                      </option>
-                    ))}
-                  </select>
-                </div>}
+               {(uploadType === "Previous Year Question(PYQs)" || uploadType === "Last Time Content") && (
+  <div>
+    <label className="block mb-1 font-medium text-gray-700">
+      Select Type
+    </label>
+    <select
+      value={uploadType2}
+      onChange={(e) => setUploadType2(e.target.value)}
+      className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-sky-400"
+    >
+      {docTypes2.map((type) => (
+        <option key={type} value={type}>
+          {type}
+        </option>
+      ))}
+    </select>
+  </div>
+)}
+
 
                 <div>
                   <label className="block mb-1 font-medium text-gray-700">
