@@ -33,14 +33,14 @@ const BranchSelectionPage = () => {
                 SynLearn
               </span>
             </div>
-            {!isAuthenticated && (
-              <button
-                onClick={() => navigate("/login")}
-                className="px-5 py-2 bg-gradient-to-r from-sky-500 to-teal-400 text-white rounded-lg font-medium hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
-              >
-                Login
-              </button>
-            )}
+            <button
+              onClick={() => navigate(-1)}
+              className="flex items-center space-x-2 px-4 py-2 text-slate-600 hover:text-slate-800 transition-colors"
+            >
+              <ArrowLeft className="h-5 w-5" />
+              <span className="font-medium">Back</span>
+            </button>
+            
           </div>
         </div>
       </nav>
@@ -48,13 +48,13 @@ const BranchSelectionPage = () => {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Back Button */}
-        <button
+        {/* <button
           onClick={() => navigate(-1)}
           className="flex items-center text-sky-600 hover:text-teal-600 font-medium mb-6 transition-all"
         >
           <ArrowLeft className="h-5 w-5 mr-2" />
           Back
-        </button>
+        </button> */}
 
         {/* Header */}
         <div className="text-center mb-16">
@@ -117,7 +117,7 @@ const BranchSelectionPage = () => {
             Choose your branch and dive into semester-specific notes, PYQs, and curated materials designed for you.
           </p>
           <button
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/loginpage")}
             className="px-8 py-3 bg-white text-sky-600 rounded-xl font-semibold hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-200"
           >
             Continue

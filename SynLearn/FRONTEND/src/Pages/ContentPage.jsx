@@ -21,7 +21,6 @@ const ContentPage = () => {
     notes: "Notes",
     modules: "Modules",
   };
-
   const categoryKey = (categoryId || "notes").toLowerCase();
   const category = typeMap[categoryKey] || "Notes";
 
@@ -39,7 +38,7 @@ const ContentPage = () => {
       case "pyqs":
         return "Previous Year Questions";
       case "last-sem":
-        return "Last Semester Content";
+        return "Last Time Content";
       case "notes":
         return "Subject Notes";
       case "modules":

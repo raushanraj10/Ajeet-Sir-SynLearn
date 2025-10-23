@@ -62,10 +62,10 @@ const HomePage = () => {
               </span>
             </div>
             {!isAuthenticated&&<button
-              onClick={() => navigate('/login')}
+              onClick={() => navigate('/loginpage')}
               className="px-5 py-2 bg-gradient-to-r from-sky-500 to-teal-400 text-white rounded-lg font-medium hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
             >
-              Login
+              Sign In/Sign Up
             </button>}
           </div>
         </div>
@@ -143,7 +143,7 @@ const HomePage = () => {
             Join thousands of students who are excelling in their studies with SynLearn's comprehensive resources
           </p>
           <button
-            onClick={() => navigate('/login')}
+            onClick={() => navigate('/loginpage')}
             className="px-8 py-3 bg-white text-sky-600 rounded-xl font-semibold hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-200"
           >
             Get Started Now

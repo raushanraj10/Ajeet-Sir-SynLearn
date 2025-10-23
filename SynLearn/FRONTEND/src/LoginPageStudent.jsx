@@ -78,7 +78,7 @@ export default function LoginPageStudent() {
         text: `Welcome ${student.fullName}`,
       });
 
-      navigate("/categoriespage");
+      navigate("/");
     } catch (err) {
       console.error("Login error:", err);
       setError(

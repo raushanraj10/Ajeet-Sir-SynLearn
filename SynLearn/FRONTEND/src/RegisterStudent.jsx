@@ -4,7 +4,15 @@ import axios from "axios";
 import Select from "react-select";
 import Swal from "sweetalert2";
 import BASE_URL from "./Components/constants/BASE_URL";
-
+import {
+  ArrowLeft,
+  GraduationCap,
+  FileText,
+  ExternalLink,
+  Download,
+  Search,
+  Filter,
+} from "lucide-react";
 // Custom shimmer component
 function Shimmer() {
   return (
@@ -221,7 +229,28 @@ export default function RegisterStudent() {
   if (loading) return <Shimmer />;
 
   return (
+    <>
+     <nav className="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center space-x-3">
+              <GraduationCap className="h-8 w-8 text-sky-500" />
+              <span className="text-2xl font-bold bg-gradient-to-r from-sky-500 via-teal-400 to-green-400 bg-clip-text text-transparent select-none">
+                SynLearn
+              </span>
+            </div>
+            <button
+              onClick={() => navigate(-1)}
+              className="flex items-center space-x-2 px-4 py-2 text-slate-600 hover:text-slate-800 transition-colors"
+            >
+              <ArrowLeft className="h-5 w-5" />
+              <span className="font-medium">Back</span>
+            </button>
+          </div>
+        </div>
+      </nav>
     <div className="min-h-screen bg-[#eaf3fb] flex items-center justify-center p-6 relative">
+      
       <div className="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-2xl">
         <h2 className="text-3xl font-bold text-center text-stone-800 mb-2">
           Welcome to{" "}
@@ -450,11 +479,12 @@ export default function RegisterStudent() {
 
         <p className="text-sm text-center text-gray-500 mt-6">
           Already have an account?{" "}
-          <a href="/" className="text-blue-600 hover:underline">
+          <a href="/loginpage" className="text-blue-600 hover:underline">
             Login
           </a>
         </p>
       </div>
     </div>
+    </>
   );
 }
