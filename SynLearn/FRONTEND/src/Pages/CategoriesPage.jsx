@@ -1,8 +1,9 @@
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { FileQuestion, FileText, BookOpen, Layers, ArrowLeft, GraduationCap } from 'lucide-react';
 
 const CategoriesPage = () => {
   const navigate = useNavigate();
+  const {branch}=useParams()
   const location = useLocation();
   const semester = location.state?.semester || 1;
 
@@ -19,7 +20,7 @@ const CategoriesPage = () => {
     },
     {
       id: 'last-sem',
-      title: 'Last Semester Content',
+      title: 'Last Time Content',
       description: 'Previous batch mid-sem and end-sem materials',
       icon: FileText,
       color: 'from-teal-400 to-cyan-500',
@@ -50,7 +51,7 @@ const CategoriesPage = () => {
   ];
 
  const handleCategoryClick = (categoryId) => {
-  navigate('/content', { state: { semester, category: categoryId } });
+  navigate(`/contentpage/${semester}/${branch}/${categoryId}`, { state: { semester, category: categoryId } });
 };
 
 
@@ -66,11 +67,11 @@ const CategoriesPage = () => {
               </span>
             </div>
             <button
-              onClick={() => navigate('/')}
+              onClick={() => navigate(-1)}
               className="flex items-center space-x-2 px-4 py-2 text-slate-600 hover:text-slate-800 transition-colors"
             >
               <ArrowLeft className="h-5 w-5" />
-              <span className="font-medium">Back to Home</span>
+              <span className="font-medium">Back</span>
             </button>
           </div>
         </div>

@@ -4,7 +4,7 @@ import { BookOpen, FileText, FileQuestion, Layers, GraduationCap, ChevronRight }
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const  isAuthenticated  = useSelector((store) => store?.user);
+  const  isAuthenticated  = useSelector((store) => store?.userdata);
 
   const semesters = [
     { sem: 1, color: 'from-sky-400 to-teal-400' },
@@ -45,11 +45,8 @@ const HomePage = () => {
   ];
 
   const handleSemesterClick = (sem) => {
-  if (!isAuthenticated) {
-    navigate('/loginpage');
-  } else {
-    navigate('/categoriespage', { state: { semester: sem } });
-  }
+ navigate(`/branchselectionpage/${sem}`, { state: { semester: sem } });
+
 };
 
 
@@ -64,12 +61,12 @@ const HomePage = () => {
                 SynLearn
               </span>
             </div>
-            <button
+            {!isAuthenticated&&<button
               onClick={() => navigate('/login')}
               className="px-5 py-2 bg-gradient-to-r from-sky-500 to-teal-400 text-white rounded-lg font-medium hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
             >
               Login
-            </button>
+            </button>}
           </div>
         </div>
       </nav>

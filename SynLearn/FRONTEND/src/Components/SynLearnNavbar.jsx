@@ -229,7 +229,7 @@ export default function SynLearnNavbar() {
   // Home navigation based on user type
   const handleHome = () => {
     if (currentType === "admin") navigate("/facultyhome");
-    else if (currentType === "student") navigate("/studenthome");
+    else if (currentType === "student") navigate("/categoriespage");
   };
 
   // Logout logic (attach redux clear if desired)

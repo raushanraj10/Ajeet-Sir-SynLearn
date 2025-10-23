@@ -38,15 +38,15 @@ export default function LoginPage() {
   }
 const student=useSelector((store)=>store?.userdata)
 const admin=useSelector((store)=>store?.admindata)
-  useEffect(()=>{
-if(student){
-  return Navigate("/categoriespage")
-}
-if(admin){
-  return Navigate("/facultyhome")
-}
+//   useEffect(()=>{
+// if(student){
+//   return Navigate("/categoriespage")
+// }
+// if(admin){
+//   return Navigate("/facultyhome")
+// }
 
-  },[student,admin])
+//   },[student,admin])
 
   return (
  

@@ -78,7 +78,7 @@ export default function LoginPageStudent() {
         text: `Welcome ${student.fullName}`,
       });
 
-      navigate("/studenthome");
+      navigate("/categoriespage");
     } catch (err) {
       console.error("Login error:", err);
       setError(
@@ -90,14 +90,14 @@ export default function LoginPageStudent() {
 const Navigate=useNavigate()
   const student=useSelector((store)=>store?.userdata)
 const admin=useSelector((store)=>store?.admindata)
-  useEffect(()=>{
-if(student){
-  return Navigate("/studenthome")
-}
-if(admin){
-  return Navigate("/facultyhome")
-}
-  },[student,admin])
+//   useEffect(()=>{
+// if(student){
+//   return Navigate("/")
+// }
+// if(admin){
+//   return Navigate("/facultyhome")
+// }
+//   },[student,admin])
 
 
   return (

@@ -106,21 +106,26 @@ ProfileRouter.delete("/admin/students/:id", async (req, res) => {
 
 const normalizeBranch = (branch) => branch.toLowerCase();
 
-// GET /student/documents?semester=Semester%201&branch=civil-engineering&type=Notes
+// Express route
 ProfileRouter.get("/student/documents", async (req, res) => {
   try {
+ 
     const { semester, branch, type } = req.query;
-
+  
+     let finalsemester="Semester "+semester
+     let finalbranch=branch
+     if(branch==="computer-science-&-engineering-(iot)")
+      finalbranch="computer-science-and-engineering-iot"
     if (!semester || !branch || !type) {
       return res.status(400).json({ message: "semester, branch and type query params required" });
     }
-
+    console.log(type)
     // Find documents matching filters
     const docs = await ModelTeacherFile.find({
-      semester: semester.trim(),
-      branch: branch.trim(),
-      type: type.trim(),
-    }).sort({ createdAt: -1 });
+      semester:finalsemester,
+      branch:finalbranch,
+      type,
+    })
 
     res.json(docs);
   } catch (err) {
@@ -128,5 +133,6 @@ ProfileRouter.get("/student/documents", async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
 
 module.exports=ProfileRouter

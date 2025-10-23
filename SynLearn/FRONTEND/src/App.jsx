@@ -10,6 +10,8 @@ import LoginPageStudent from "./LoginPageStudent";
 import StudentSidebarDocs from "./Components/StudentSidebarDocs";
 import HomePage from "./Pages/HomePage";
 import CategoriesPage from "./Pages/CategoriesPage";
+import ContentPage from "./Pages/ContentPage";
+import BranchSelectionPage from "./Pages/BranchSelectionPage";
 
 
 const NotFound = () => {
@@ -43,13 +45,15 @@ function App() {
         <Routes>
           <Route path="/" element={<Body />}>
           <Route path="/" element={<HomePage />} />
-           <Route path="/categoriespage" element={<CategoriesPage />} />
+           <Route path="/categoriespage/:semester/:branch" element={<CategoriesPage />} />
+           <Route path="/branchselectionpage/:semester" element={<BranchSelectionPage />} />
             <Route path="/loginpage" element={<LoginPageStudent />} />
-            <Route path="login-by-admin" element={<LoginPage />} />
-            <Route path="studenthome" element={<StudentSidebarDocs />} />
-            <Route path="uploaddoc/:semester/:branch" element={<UploadDocumentPage />} />
-            <Route path="facultyhome" element={<FacultyHome />} />
-            <Route path="register" element={<RegisterStudent />} />
+            <Route path="/login-by-admin" element={<LoginPage />} />
+            <Route path="/studenthome" element={<StudentSidebarDocs />} />
+            <Route path="/contentpage/:semester/:branch/:categoryId" element={<ContentPage />} />
+            <Route path="/uploaddoc/:semester/:branch" element={<UploadDocumentPage />} />
+            <Route path="/facultyhome" element={<FacultyHome />} />
+            <Route path="/register" element={<RegisterStudent />} />
 
             {/* ✅ Catch-all 404 route */}
             <Route path="*" element={<NotFound />} />
