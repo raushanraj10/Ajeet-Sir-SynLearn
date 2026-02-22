@@ -25,6 +25,7 @@ export default function UploadDocumentPage() {
 
   // Filters
   const [documents, setDocuments] = useState([]);
+    const [copydocuments, setcopyDocuments] = useState([]);
   const [filterType, setFilterType] = useState("");
   const [filterSubject, setFilterSubject] = useState("");
   const [filterYear, setFilterYear] = useState("");
@@ -65,6 +66,8 @@ export default function UploadDocumentPage() {
       );
 
       setDocuments(res.data);
+      setcopyDocuments(res.data);
+
 
       // Populate filter dropdowns
       const subjects = [...new Set(res.data.map((doc) => doc.subject))];
@@ -79,7 +82,7 @@ export default function UploadDocumentPage() {
   useEffect(() => {
     fetchDocuments();
     // eslint-disable-next-line
-  }, [semester, branch, filterType, filterSubject, filterYear]);
+  }, [semester, branch]);
 
   // Delete document
   const handleDeleteDocument = async (docId) => {
@@ -159,9 +162,58 @@ export default function UploadDocumentPage() {
     }
   };
 
+useEffect(()=>{
+  if(copydocuments.length===0) return;
+  if(filterType!==""){
+    if(filterType==="All"){
+      setDocuments(copydocuments)
+      return;
+    }
+    const filter=copydocuments.filter((e)=>e.type===filterType)
+    setDocuments(filter)
+  }
+
+    if(filterSubject!==""){
+      console.log(filterSubject)
+    if(filterSubject==="All"){
+      setDocuments(copydocuments)
+      return;
+    }
+    const filter=copydocuments.filter((e)=>e.subject===filterSubject)
+    setDocuments(filter)
+  }
+
+
+  if(filterYear!==""){
+      console.log(filterYear)
+    if(filterYear==="All"){
+      setDocuments(copydocuments)
+      return;
+    }
+    const filter=copydocuments.filter((e)=>e.year.toString()===filterYear)
+    setDocuments(filter)
+  }
+// if(!filterType && !filterSubject && !filterYear &&  searchName==="")
+//   setDocuments(copydocuments)
+
+},[filterType,filterSubject,filterYear,searchName])
+
+
   // Handle search click
   const handleSearch = () => {
-    fetchDocuments();
+    if(searchName===""){
+      setDocuments(copydocuments)
+      return;
+    }
+      
+      console.log(searchName)
+    if(searchName==="All"){
+      setDocuments(copydocuments)
+      return;
+    }
+    const filter=copydocuments.filter((e)=>e.originalFilename.toLowerCase().includes(searchName.toLowerCase()))
+    setDocuments(filter)
+
   };
 
   return (
@@ -185,7 +237,7 @@ export default function UploadDocumentPage() {
             onChange={(e) => setFilterType(e.target.value)}
             className="px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-sky-400"
           >
-            <option value="">All Types</option>
+            <option value="All">All Types</option>
             {docTypes.map((type) => (
               <option key={type} value={type}>
                 {type}
@@ -198,7 +250,7 @@ export default function UploadDocumentPage() {
             onChange={(e) => setFilterSubject(e.target.value)}
             className="px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-sky-400"
           >
-            <option value="">All Subjects</option>
+            <option value="All">All Subjects</option>
             {availableSubjects.map((subject) => (
               <option key={subject} value={subject}>
                 {subject}
@@ -211,7 +263,7 @@ export default function UploadDocumentPage() {
             onChange={(e) => setFilterYear(e.target.value)}
             className="px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-sky-400"
           >
-            <option value="">All Years</option>
+            <option value="All">All Years</option>
             {availableYears.map((year) => (
               <option key={year} value={year}>
                 {year}
