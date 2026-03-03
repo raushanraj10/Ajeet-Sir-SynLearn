@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+
 import {
   ArrowLeft,
   GraduationCap,
@@ -11,6 +13,7 @@ import {
 } from "lucide-react";
 import axios from "axios";
 import BASE_URL from "../Components/constants/BASE_URL";
+import { removeuser } from "../Components/Utils/UserSlice";
 
 const ContentPage = () => {
   const navigate = useNavigate();
@@ -23,7 +26,7 @@ const ContentPage = () => {
   };
   const categoryKey = (categoryId || "notes").toLowerCase();
   const category = typeMap[categoryKey] || "Notes";
-
+  const studentdata=useSelector(store=>store.userdata)
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -47,10 +50,20 @@ const ContentPage = () => {
         return "Study Materials";
     }
   };
-
+  const dispatch=useDispatch()
+const HandleLogout=async()=>{
+  await axios.get(`${BASE_URL}/logout`,{withCredentials:true})
+  dispatch(removeuser());
+ return navigate("/")
+}
   const formatBranch = (branch) => {
     return branch.toLowerCase().replace(/\s+/g, "-");
   };
+useEffect(() => {
+  if (!studentdata) {
+    navigate("/loginpage", { replace: true });
+  }
+}, [studentdata, navigate]);
 
   useEffect(() => {
     fetchFiles();
@@ -127,13 +140,22 @@ const ContentPage = () => {
                 SynLearn
               </span>
             </div>
+            <div className="">
             <button
               onClick={() => navigate(-1)}
               className="flex items-center space-x-2 px-4 py-2 text-slate-600 hover:text-slate-800 transition-colors"
             >
               <ArrowLeft className="h-5 w-5" />
               <span className="font-medium">Back</span>
+               {studentdata&&<button
+              onClick={() =>HandleLogout()}
+              className="px-5 py-2 bg-gradient-to-r from-sky-500 to-teal-400 text-white rounded-lg font-medium hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
+            >
+              Logout
+            </button>}
+            
             </button>
+            </div>
           </div>
         </div>
       </nav>

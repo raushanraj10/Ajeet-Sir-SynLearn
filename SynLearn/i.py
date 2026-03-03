@@ -1,0 +1,1 @@
+print("Hello {0[0]} and {0[1]}".format(('foo', 'bin')))

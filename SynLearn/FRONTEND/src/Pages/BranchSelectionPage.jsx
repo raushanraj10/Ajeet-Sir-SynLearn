@@ -1,12 +1,20 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { GraduationCap, ChevronRight, Layers, ArrowLeft } from "lucide-react";
+import axios from "axios";
+import BASE_URL from "../Components/constants/BASE_URL";
+import { removeuser } from "../Components/Utils/UserSlice";
 
 const BranchSelectionPage = () => {
   const navigate = useNavigate();
-  const { semester } = useParams(); // 🔹 Get semester name/number from URL params
+  const { semester } = useParams();
   const isAuthenticated = useSelector((store) => store?.userdata);
-
+const dispatch=useDispatch()
+  const HandleLogout=async()=>{
+  await axios.get(`${BASE_URL}/logout`,{withCredentials:true})
+  dispatch(removeuser());
+ return navigate("/")
+}
   const branches = [
     { name: "Civil Engineering", color: "from-sky-400 to-teal-400" },
     { name: "Mechanical Engineering", color: "from-teal-400 to-green-400" },
@@ -33,14 +41,28 @@ const BranchSelectionPage = () => {
                 SynLearn
               </span>
             </div>
+            <div className="flex gap-3">
             <button
               onClick={() => navigate(-1)}
               className="flex items-center space-x-2 px-4 py-2 text-slate-600 hover:text-slate-800 transition-colors"
             >
               <ArrowLeft className="h-5 w-5" />
               <span className="font-medium">Back</span>
+                
             </button>
-            
+            {!isAuthenticated&&<button
+              onClick={() => navigate('/loginpage')}
+              className="px-5 py-2 bg-gradient-to-r from-sky-500 to-teal-400 text-white rounded-lg font-medium hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
+            >
+              Sign In/Sign Up
+            </button>}
+              {isAuthenticated&&<button
+              onClick={() =>HandleLogout()}
+              className="px-5 py-2 bg-gradient-to-r from-sky-500 to-teal-400 text-white rounded-lg font-medium hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
+            >
+              Logout
+            </button>}
+            </div>
           </div>
         </div>
       </nav>

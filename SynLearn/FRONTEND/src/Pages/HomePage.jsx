@@ -1,11 +1,19 @@
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { BookOpen, FileText, FileQuestion, Layers, GraduationCap, ChevronRight } from 'lucide-react';
+import BASE_URL from '../Components/constants/BASE_URL';
+import { removeuser } from '../Components/Utils/UserSlice';
+import axios from 'axios';
 
 const HomePage = () => {
   const navigate = useNavigate();
   const  isAuthenticated  = useSelector((store) => store?.userdata);
-
+const dispatch=useDispatch()
+  const HandleLogout=async()=>{
+  await axios.get(`${BASE_URL}/logout`,{withCredentials:true})
+  dispatch(removeuser());
+ return navigate("/")
+}
   const semesters = [
     { sem: 1, color: 'from-sky-400 to-teal-400' },
     { sem: 2, color: 'from-teal-400 to-green-400' },
@@ -61,12 +69,20 @@ const HomePage = () => {
                 SynLearn
               </span>
             </div>
+             <div className="flex">
             {!isAuthenticated&&<button
               onClick={() => navigate('/loginpage')}
               className="px-5 py-2 bg-gradient-to-r from-sky-500 to-teal-400 text-white rounded-lg font-medium hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
             >
               Sign In/Sign Up
             </button>}
+              {isAuthenticated&&<button
+              onClick={() =>HandleLogout()}
+              className="px-5 py-2 bg-gradient-to-r from-sky-500 to-teal-400 text-white rounded-lg font-medium hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
+            >
+              Logout
+            </button>}
+            </div>
           </div>
         </div>
       </nav>

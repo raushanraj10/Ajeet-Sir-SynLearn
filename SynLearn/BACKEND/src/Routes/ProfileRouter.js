@@ -119,7 +119,7 @@ ProfileRouter.get("/student/documents", async (req, res) => {
     if (!semester || !branch || !type) {
       return res.status(400).json({ message: "semester, branch and type query params required" });
     }
-    console.log(type)
+    // console.log(type)
     // Find documents matching filters
     const docs = await ModelTeacherFile.find({
       semester:finalsemester,
