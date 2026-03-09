@@ -66,7 +66,7 @@ const dispatch=useDispatch()
             <div className="flex items-center space-x-3">
               <GraduationCap className="h-8 w-8 text-sky-500" />
               <span className="text-2xl font-bold bg-gradient-to-r from-sky-500 via-teal-400 to-green-400 bg-clip-text text-transparent select-none">
-                SynLearn
+                LastMinutes
               </span>
             </div>
              <div className="flex">
@@ -90,10 +90,11 @@ const dispatch=useDispatch()
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-16">
           <h1 className="text-5xl font-bold text-slate-800 mb-4">
-            Welcome to{' '}
+            Welcome to {' '}
             <span className="bg-gradient-to-r from-sky-500 via-teal-400 to-green-400 bg-clip-text text-transparent">
-              SynLearn
+              LastMinutes
             </span>
+            
           </h1>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto">
             Your comprehensive learning platform for B.Tech studies. Access PYQs, notes, and study materials curated by faculty.
@@ -156,7 +157,7 @@ const dispatch=useDispatch()
             Start Your Learning Journey Today
           </h3>
           <p className="text-lg mb-6 text-white/90 max-w-2xl mx-auto">
-            Join thousands of students who are excelling in their studies with SynLearn's comprehensive resources
+            Join thousands of students who are excelling in their studies with LastMinutes's comprehensive resources
           </p>
           <button
             onClick={() => navigate('/loginpage')}
@@ -170,7 +171,7 @@ const dispatch=useDispatch()
       <footer className="bg-white border-t border-slate-200 mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center text-slate-600">
-            <p>&copy; 2024 SynLearn. All rights reserved.</p>
+            <p>&copy; 2026 LastMinutes. All rights reserved.</p>
           </div>
         </div>
       </footer>

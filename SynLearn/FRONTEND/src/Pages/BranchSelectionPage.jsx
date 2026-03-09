@@ -38,7 +38,7 @@ const dispatch=useDispatch()
             <div className="flex items-center space-x-3">
               <GraduationCap className="h-8 w-8 text-sky-500" />
               <span className="text-2xl font-bold bg-gradient-to-r from-sky-500 via-teal-400 to-green-400 bg-clip-text text-transparent select-none">
-                SynLearn
+                LastMinutes
               </span>
             </div>
             <div className="flex gap-3">
@@ -151,7 +151,7 @@ const dispatch=useDispatch()
       <footer className="bg-white border-t border-slate-200 mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center text-slate-600">
-            <p>&copy; 2024 SynLearn. All rights reserved.</p>
+            <p>&copy; 2026 LastMinutes. All rights reserved.</p>
           </div>
         </div>
       </footer>

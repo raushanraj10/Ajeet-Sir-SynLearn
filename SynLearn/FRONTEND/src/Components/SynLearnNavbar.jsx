@@ -268,7 +268,7 @@ const handleLogout = async () => {
             {/* Logo */}
             <div className="flex items-center space-x-2">
               <span className="text-xl font-semibold bg-gradient-to-r from-sky-500 via-teal-400 to-green-400 bg-clip-text text-transparent select-none">
-                SynLearn
+                LastMinutes
               </span>
             </div>
             {/* Menu - always visible, flex wrap for mobile */}

@@ -7,7 +7,7 @@ export default function Footer() {
         {/* Brand */}
         <div className="flex items-center space-x-2">
           <span className="text-1xl font-semibold bg-gradient-to-r from-sky-500 via-teal-400 to-green-400 bg-clip-text text-transparent select-none">
-            SynLearn
+            LastMinutes
           </span>
         </div>
 
@@ -16,7 +16,7 @@ export default function Footer() {
 
         {/* Copyright */}
         <p className="text-gray-500 text-sm font-medium tracking-wide">
-          © {new Date().getFullYear()} SynLearn — All rights reserved.
+          © {new Date().getFullYear()} LastMinutes — All rights reserved.
         </p>
       </div>
     </footer>

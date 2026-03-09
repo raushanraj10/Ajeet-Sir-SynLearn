@@ -137,7 +137,7 @@ useEffect(() => {
             <div className="flex items-center space-x-3">
               <GraduationCap className="h-8 w-8 text-sky-500" />
               <span className="text-2xl font-bold bg-gradient-to-r from-sky-500 via-teal-400 to-green-400 bg-clip-text text-transparent select-none">
-                SynLearn
+                LastMinutes
               </span>
             </div>
             <div className="">
@@ -331,13 +331,6 @@ useEffect(() => {
                                   >
                                     <ExternalLink className="h-4 w-4" />
                                     <span className="text-sm">View</span>
-                                  </a>
-                                  <a
-                                    href={file.pdfUrl}
-                                    download
-                                    className="px-4 py-2 bg-slate-200 text-slate-700 rounded-lg font-medium hover:bg-slate-300 hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
-                                  >
-                                    <Download className="h-4 w-4" />
                                   </a>
                                 </>
                               ) : (

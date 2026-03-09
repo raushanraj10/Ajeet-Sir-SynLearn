@@ -236,7 +236,7 @@ export default function RegisterStudent() {
             <div className="flex items-center space-x-3">
               <GraduationCap className="h-8 w-8 text-sky-500" />
               <span className="text-2xl font-bold bg-gradient-to-r from-sky-500 via-teal-400 to-green-400 bg-clip-text text-transparent select-none">
-                SynLearn
+                LastMinutes
               </span>
             </div>
             <button
@@ -255,7 +255,7 @@ export default function RegisterStudent() {
         <h2 className="text-3xl font-bold text-center text-stone-800 mb-2">
           Welcome to{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-green-600">
-            SynLearn
+            LastMinutes
           </span>
         </h2>
         <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>

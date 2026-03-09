@@ -74,7 +74,7 @@ const dispatch=useDispatch()
             <div className="flex items-center space-x-3">
               <GraduationCap className="h-8 w-8 text-sky-500" />
               <span className="text-2xl font-bold bg-gradient-to-r from-sky-500 via-teal-400 to-green-400 bg-clip-text text-transparent select-none">
-                SynLearn
+                LastMinutes
               </span>
             </div>
              <div className="flex gap-3">

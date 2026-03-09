@@ -110,7 +110,7 @@ const admin=useSelector((store)=>store?.admindata)
             <div className="flex items-center space-x-3">
               <GraduationCap className="h-8 w-8 text-sky-500" />
               <span className="text-2xl font-bold bg-gradient-to-r from-sky-500 via-teal-400 to-green-400 bg-clip-text text-transparent select-none">
-                SynLearn
+                LastMinutes
               </span>
             </div>
             <div className="">
@@ -130,7 +130,7 @@ const admin=useSelector((store)=>store?.admindata)
      
       <form onSubmit={handleSubmit} className="max-w-md w-full bg-white p-8 rounded-2xl shadow-lg">
         <h2 className="mb-6 text-2xl font-semibold text-center text-sky-700">
-          Login to SynLearn
+          Login to LastMinutes
         </h2>
 
         {error && <p className="text-red-600 mb-4 text-center">{error}</p>}

@@ -47,7 +47,7 @@ const Body=()=>{
     loadData();
   }, []);
 
-//    if (loading) return <Shimmer />;
+   if (loading) return ;
 
 
     return (

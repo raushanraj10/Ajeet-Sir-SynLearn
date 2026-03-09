@@ -163,38 +163,14 @@ export default function UploadDocumentPage() {
   };
 
 useEffect(()=>{
-  if(copydocuments.length===0) return;
-  if(filterType!==""){
-    if(filterType==="All"){
-      setDocuments(copydocuments)
-      return;
-    }
-    const filter=copydocuments.filter((e)=>e.type===filterType)
-    setDocuments(filter)
-  }
-
-    if(filterSubject!==""){
-      console.log(filterSubject)
-    if(filterSubject==="All"){
-      setDocuments(copydocuments)
-      return;
-    }
-    const filter=copydocuments.filter((e)=>e.subject===filterSubject)
-    setDocuments(filter)
-  }
-
-
-  if(filterYear!==""){
-      console.log(filterYear)
-    if(filterYear==="All"){
-      setDocuments(copydocuments)
-      return;
-    }
-    const filter=copydocuments.filter((e)=>e.year.toString()===filterYear)
-    setDocuments(filter)
-  }
-// if(!filterType && !filterSubject && !filterYear &&  searchName==="")
-//   setDocuments(copydocuments)
+  if(filterType!=="")
+    setDocuments(documents.filter((e)=>e.type===filterType))
+  if(filterSubject!=="")
+    setDocuments(documents.filter((e)=>e.type===filterSubject))
+   if(filterYear!=="")
+    setDocuments(documents.filter((e)=>e.type===filterYear))
+   if(searchName!=="")
+    setDocuments(documents.filter((e)=>e.type===filterSubject))
 
 },[filterType,filterSubject,filterYear,searchName])
 
